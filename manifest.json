@@ -1,0 +1,41 @@
+{
+	"manifest_version": 3,
+	"name": "SHORC",
+	"version": "0.0.1",
+	"description": "a YouTube shorts converter",
+	"author": "MeBby",
+	"icons": {
+		"16": "icon/SHORC_16.png",
+		"32": "icon/SHORC_32.png",
+		"48": "icon/SHORC_64.png",
+		"128": "icon/SHORC_128.png"
+	},
+	"permissions": [
+		"tabs"
+	],
+	"action": {
+		"default_popup": "src/page/index.html",
+		"default_title": "SHORC"
+	},
+	"commands": {
+		"_execute_action": {
+			"suggested_key": {
+				"default": "Ctrl+Y",
+				"mac": "Command+Y"
+			}
+		}
+	},
+	"content_scripts": [
+		{
+			"js": [
+				"src/contents/script.js"
+			],
+			"matches": [
+				"https://www.youtube.com/shorts/*"
+			]
+		}
+	],
+	"background": {
+		"service_worker": "src/background/worker.js"
+	}
+}
