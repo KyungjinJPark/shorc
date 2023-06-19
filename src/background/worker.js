@@ -21,7 +21,7 @@ const convertPage = (tab) => {
 /**
  * initial set-up
  */
-chrome.runtime.onInstalled.addListener(async () => {
+const setUp = async () => {
   chrome.action.setBadgeBackgroundColor({color: '#ff6464'})
   const { autoConvert } = await chrome.storage.local.get(["autoConvert"])
   if (autoConvert === undefined) {
@@ -32,7 +32,9 @@ chrome.runtime.onInstalled.addListener(async () => {
       text: "ON",
     });
   }
-});
+};
+chrome.runtime.onInstalled.addListener(setUp)
+chrome.runtime.onStartup.addListener(setUp);
 
 /**
  * handle `commands`
