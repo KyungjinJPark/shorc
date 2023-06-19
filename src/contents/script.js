@@ -1,3 +1,18 @@
+/**
+ * this script enables editing of web page content.
+ * requires `content_scripts` in `manifest.json`:
+	"content_scripts": [
+		{
+			"js": [
+				"src/contents/script.js"
+			],
+			"matches": [
+				"https://www.youtube.com/shorts/*"
+			]
+		}
+	],
+ */
+
 // wait for the shorts container to load
 const scIntId = setInterval(() => {
 	const shortsContainer = document.getElementById('shorts-inner-container')

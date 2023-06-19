@@ -11,6 +11,7 @@
 		"128": "icon/SHORC_128.png"
 	},
 	"permissions": [
+		"storage",
 		"tabs"
 	],
 	"action": {
@@ -18,23 +19,14 @@
 		"default_title": "SHORC"
 	},
 	"commands": {
-		"_execute_action": {
+		"convert_page": {
 			"suggested_key": {
 				"default": "Ctrl+Y",
 				"mac": "Command+Y"
-			}
+			},
+			"description": "convert the current page"
 		}
 	},
-	"content_scripts": [
-		{
-			"js": [
-				"src/contents/script.js"
-			],
-			"matches": [
-				"https://www.youtube.com/shorts/*"
-			]
-		}
-	],
 	"background": {
 		"service_worker": "src/background/worker.js"
 	}
