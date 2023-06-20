@@ -3,20 +3,26 @@
  */
 
 /**
- * convert tab to normal video
+ * toggle tab between normal video or short
  * @param {object} tab
  */
-const convertPage = (tab) => {
+const toggleTab = (tab) => {
 	// TODO: create reusable util
+	// TODO: omega wet code
 	const { url } = tab
-	if (url && url.startsWith('https://www.youtube.com/shorts/')) {
-	  if (url.includes('/shorts/')) {
-		const newUrl = url.replace('/shorts/', '/watch?v=')
-		// TODO: replaces in history, no back button
-		chrome.tabs.update(tab.id, { url: newUrl })
-	  }
+	if (url) {
+		if (url.startsWith('https://www.youtube.com/shorts/')) {
+			const newUrl = url.replace('?', '&').replace('/shorts/', '/watch?v=')
+			// TODO: replaces in history, no back button
+			chrome.tabs.update(tab.id, { url: newUrl })
+		}
+		else if (url.startsWith('https://www.youtube.com/watch?v=')) {
+			const newUrl = url.replace('/watch?v=', '/shorts/').replace('&', '?')
+			// TODO: replaces in history, no back button
+			chrome.tabs.update(tab.id, { url: newUrl })
+		}
 	}
-  }
+}
 
 /**
  * switch logic
@@ -27,7 +33,7 @@ const initializeSwitch = async () => {
 	input.checked = autoConvert
 }
 initializeSwitch();
-input.addEventListener('change', ({target}) => {
+input.addEventListener('change', ({ target }) => {
 	const newState = target.checked
 	chrome.storage.local.set({ autoConvert: newState })
 	chrome.action.setBadgeText({
@@ -46,7 +52,7 @@ const toNormalVideo = () => {
 		currentWindow: true,
 	}, (tabs) => {
 		const tab = tabs[0]
-		convertPage(tab)
+		toggleTab(tab)
 	})
 }
 button.addEventListener('click', toNormalVideo)
